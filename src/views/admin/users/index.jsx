@@ -37,43 +37,38 @@ import {
 import tableDataDevelopment from "views/admin/dataTables/variables/tableDataDevelopment.json";
 import tableDataCheck from "views/admin/dataTables/variables/tableDataCheck.json";
 import tableDataColumns from "views/admin/dataTables/variables/tableDataColumns.json";
-import ColumnsTable from "views/admin/dataTables/components/ScheduleTable";
-
 import tableDataComplex from "views/admin/dataTables/variables/tableDataComplex.json";
 import React from "react";
+import './App.css';
+import './index.css';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import ModalPopUp from "./ModalPopUp";
+
+import { Container } from './Container';
 
 export default function Settings() {
-  // Chakra Color Mode
-  return (
+    
+    const triggerText = 'Создать пользователя';
+
+    // Chakra Color Mode
+    return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
-      <SimpleGrid
-        mb='20px'
-        columns={{ sm: 2, md: 2 }}
-        spacing={{ base: "20px", xl: "20px" }}>
-        {/* <DevelopmentTable
-          columnsData={columnsDataDevelopment}
-          tableData={tableDataDevelopment}
-        /> */}
-        {/* <CheckTable columnsData={columnsDataCheck} tableData={tableDataCheck} /> */}
-        <ColumnsTable
-          columnsData={columnsDataColumns}
-          tableData={tableDataColumns}
+        <ModalPopUp>
+
+        </ModalPopUp>
+
+        {/* <Container triggerText={triggerText} onSubmit={onSubmit} />
+        <Popup trigger={<button> Trigger</button>} position="right center">
+            <div>Popup content here !!</div>
+        </Popup> */}
+        <SimpleGrid>
+        <UserTable
+            columnsData={columnsDataColumns}
+            tableData={tableDataColumns}
         />
-        {/* <ComplexTable
-          columnsData={columnsDataComplex}
-          tableData={tableDataComplex}
-        /> */}
-        <ColumnsTable
-          columnsData={columnsDataColumns}
-          tableData={tableDataColumns}
-        />
-      </SimpleGrid>
-      {/* <SimpleGrid>
-      <UserTable
-          columnsData={columnsDataColumns}
-          tableData={tableDataColumns}
-        />
-      </SimpleGrid> */}
+
+        </SimpleGrid>
     </Box>
-  );
+    );
 }

@@ -21,8 +21,8 @@
 
 */
 
-import React, { useEffect, useState } from "react";
-import {Routes, Route, useHistory , NavLink} from "react-router-dom";
+import React from "react";
+import { NavLink } from "react-router-dom";
 // Chakra imports
 import {
   Box,
@@ -47,11 +47,9 @@ import illustration from "assets/img/auth/auth.png";
 import { FcGoogle } from "react-icons/fc";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
-import { WindowsLogo } from "components/icons/Icons";
 
-function SignIn() {
+function SignUp() {
   // Chakra color mode
-  const navigate = useHistory();
   const textColor = useColorModeValue("navy.700", "white");
   const textColorSecondary = "gray.400";
   const textColorDetails = useColorModeValue("navy.700", "secondaryGray.600");
@@ -69,40 +67,6 @@ function SignIn() {
   );
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
-
-  const [username, setUserName] = useState(null);
-  const [password, setPassword] = useState(null);
-
-  let handleSignIn = async (e) => {
-    e.preventDefault();
-    try {
-      let res = await fetch("http://localhost:8007/login", {
-        method: "POST",
-        body: JSON.stringify({
-          login: username,
-          password: password,
-        }),
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        }
-      });
-      let resJson = await res.json();
-      if (res.status === 200) {
-        console.log(resJson.token)
-        localStorage.setItem('token', resJson.token);
-        localStorage.setItem('rank', resJson.rank);
-        localStorage.setItem('login', resJson.login);
-        localStorage.setItem('password', resJson.password);
-        window.location.href = window.location.origin
-        setMessage("User created successfully");
-      } else {
-        setMessage("Some error occured");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <DefaultAuth illustrationBackground={illustration} image={illustration}>
       <Flex
@@ -127,7 +91,7 @@ function SignIn() {
             color={textColorSecondary}
             fontWeight='400'
             fontSize='md'>
-            Enter your login and password to sign in!
+            Enter your pass and password to sign in!
           </Text>
         </Box>
         <Flex
@@ -140,7 +104,7 @@ function SignIn() {
           mx={{ base: "auto", lg: "unset" }}
           me='auto'
           mb={{ base: "20px", md: "auto" }}>
-          <FormControl onSubmit={handleSignIn}>
+          <FormControl>
             <FormLabel
               display='flex'
               ms='4px'
@@ -151,16 +115,14 @@ function SignIn() {
               Email<Text color={brandStars}>*</Text>
             </FormLabel>
             <Input
-              name="login"
               isRequired={true}
               variant='auth'
               fontSize='sm'
               ms={{ base: "0px", md: "0px" }}
-              type='text'
-              placeholder='somelogin'
+              type='email'
+              placeholder='mail@simmmple.com'
               mb='24px'
               fontWeight='500'
-              onChange={e => setUserName(e.target.value)}
               size='lg'
             />
             <FormLabel
@@ -173,14 +135,12 @@ function SignIn() {
             </FormLabel>
             <InputGroup size='md'>
               <Input
-                name="password"
                 isRequired={true}
                 fontSize='sm'
                 placeholder='Min. 8 characters'
                 mb='24px'
                 size='lg'
                 type={show ? "text" : "password"}
-                onChange={e => setPassword(e.target.value)}
                 variant='auth'
               />
               <InputRightElement display='flex' alignItems='center' mt='4px'>
@@ -193,7 +153,7 @@ function SignIn() {
               </InputRightElement>
             </InputGroup>
             <Flex justifyContent='space-between' align='center' mb='24px'>
-              <FormControl display='flex' alignItems='center' onSubmit={handleSignIn}>
+              <FormControl display='flex' alignItems='center'>
                 <Checkbox
                   id='remember-login'
                   colorScheme='brandScheme'
@@ -224,9 +184,7 @@ function SignIn() {
               fontWeight='500'
               w='100%'
               h='50'
-              mb='24px'
-              onClick={handleSignIn}
-              >
+              mb='24px'>
               Sign In
             </Button>
           </FormControl>
@@ -255,4 +213,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default SignUp;

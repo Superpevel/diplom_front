@@ -41,6 +41,12 @@ export default function HeaderLinks(props) {
     "14px 17px 40px 4px rgba(112, 144, 176, 0.18)",
     "14px 17px 40px 4px rgba(112, 144, 176, 0.06)"
   );
+  let Logout = async (e) => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('rank');
+    localStorage.removeItem('login');
+    localStorage.removeItem('password');
+  }
   const borderButton = useColorModeValue("secondaryGray.500", "whiteAlpha.200");
   return (
     <Flex
@@ -236,32 +242,33 @@ export default function HeaderLinks(props) {
               fontSize='sm'
               fontWeight='700'
               color={textColor}>
-              👋&nbsp; Hey, Adela
+              Вы вошли как: {localStorage.getItem('login') ? localStorage.getItem('login'): <a href="/#/auth/sign-in">login in pls</a>}
             </Text>
           </Flex>
           <Flex flexDirection='column' p='10px'>
+            { localStorage.getItem('login') ?             
             <MenuItem
               _hover={{ bg: "none" }}
               _focus={{ bg: "none" }}
               borderRadius='8px'
               px='14px'>
+                <Link
+                href={`${process.env.PUBLIC_URL}/#/admin/profile`}>
               <Text fontSize='sm'>Profile Settings</Text>
+              </Link>
             </MenuItem>
-            <MenuItem
-              _hover={{ bg: "none" }}
-              _focus={{ bg: "none" }}
-              borderRadius='8px'
-              px='14px'>
-              <Text fontSize='sm'>Newsletter Settings</Text>
-            </MenuItem>
+            : '' }
+
+              { localStorage.getItem('login') ?             
             <MenuItem
               _hover={{ bg: "none" }}
               _focus={{ bg: "none" }}
               color='red.400'
               borderRadius='8px'
               px='14px'>
-              <Text fontSize='sm'>Log out</Text>
+              <Text fontSize='sm' onClick={Logout}>Log out</Text>
             </MenuItem>
+            : '' }  
           </Flex>
         </MenuList>
       </Menu>
