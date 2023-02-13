@@ -117,6 +117,38 @@ import {
       setPageNum(pageNum-1)
     }
   
+    function downloadWorkHoursReport(page, page_size) {
+      fetch('http://localhost:8007/api/report/work_hours', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/xlsx',
+        },
+      })
+      .then((response) => response.blob())
+      .then((blob) => {
+        // Create blob link to download
+        const url = window.URL.createObjectURL(
+          new Blob([blob]),
+        );
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute(
+          'download',
+          `FileName.xlsx`,
+        );
+    
+        // Append to html link element page
+        document.body.appendChild(link);
+    
+        // Start download
+        link.click();
+    
+        // Clean up and remove the link
+        link.parentNode.removeChild(link);
+      });
+
+    }
+  
     const [doorsData, setDoorsData] = useState(null);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
@@ -198,10 +230,8 @@ import {
               >
                 Логи входов
               </Text>
-              <Button
-              
-              >
-                Скачать недельный отчет о количетсве рабочих часов
+              <Button onClick={downloadWorkHoursReport}>
+                Скачать дневной отчет о количетсве рабочих часов
               </Button>
               <Menu />
             </Flex>
@@ -262,6 +292,19 @@ import {
                           fontSize={{ sm: "10px", lg: "12px" }}
                           color="gray.400"
                         >
+                          datetime
+                        </Flex>
+                      </Th>
+                      <Th
+                        pe="10px"
+                        borderColor={borderColor}
+                      >
+                        <Flex
+                          justify="space-between"
+                          align="center"
+                          fontSize={{ sm: "10px", lg: "12px" }}
+                          color="gray.400"
+                        >
                           is_entry
                         </Flex>
                       </Th>
@@ -310,6 +353,15 @@ import {
                         >
                           <Text color={textColor} fontSize="sm" fontWeight="700">
                             {el.user_id}
+                            </Text>
+                        </Td>
+                        <Td
+                          fontSize={{ sm: "14px" }}
+                          minW={{ sm: "150px", md: "200px", lg: "auto" }}
+                          borderColor="transparent"
+                        >
+                          <Text color={textColor} fontSize="sm" fontWeight="700">
+                            {el.datetime}
                             </Text>
                         </Td>
                         <Td

@@ -8,6 +8,21 @@ import Project3 from "assets/img/profile/Project3.png";
 import Card from "components/card/Card.js";
 import React from "react";
 import Project from "views/admin/profile/components/Project";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  HStack,
+  Icon,
+  Link,
+  Menu,
+  MenuList,
+  Stack,
+  useColorMode,
+  useDisclosure,
+  SimpleGrid,
+} from "@chakra-ui/react";
 
 export default function Projects(props) {
   // Chakra Color Mode
@@ -25,35 +40,46 @@ export default function Projects(props) {
         fontSize='2xl'
         mt='10px'
         mb='4px'>
-        All projects
+        
       </Text>
       <Text color={textColorSecondary} fontSize='md' me='26px' mb='40px'>
-        Here you can find more details about your projects. Keep you user
-        engaged by providing meaningful information.
+        Проект для управления дверьми или СКУД систстема . 
       </Text>
+      <Link 
+      href={`${process.env.PUBLIC_URL}/#/admin/users`}
+      >
       <Project
         boxShadow={cardShadow}
         mb='20px'
         image={Project1}
         ranking='1'
         link='#'
-        title='Technology behind the Blockchain'
+        title='Управление пользователями'
       />
+      </Link>
+      <Link 
+      href={`${process.env.PUBLIC_URL}/#/admin/doors_log`}
+      >
       <Project
         boxShadow={cardShadow}
         mb='20px'
-        image={Project2}
+        image={Project1}
         ranking='2'
         link='#'
-        title='Greatest way to a good Economy'
+        title='Просмотр логов дверей'
       />
+      </Link>
+      <Link 
+      href={`${process.env.PUBLIC_URL}/#/admin/data-tables`}
+      >
       <Project
         boxShadow={cardShadow}
-        image={Project3}
+        image={Project1}
         ranking='3'
         link='#'
-        title='Most essential tips for Burnout'
+        title='Управление дверьми'
       />
+      </Link>
     </Card>
   );
 }

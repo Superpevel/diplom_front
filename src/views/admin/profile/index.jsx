@@ -55,10 +55,8 @@ export default function Overview() {
           banner={banner}
           avatar={avatar}
           name={ localStorage.getItem('login')}
-          job='Product Designer'
-          posts='17'
-          followers='9.7k'
-          following='274'
+          job='Admin'
+
         />
         {/* <Storage
           gridArea={{ base: "2 / 1 / 3 / 2", lg: "1 / 2 / 2 / 3" }}

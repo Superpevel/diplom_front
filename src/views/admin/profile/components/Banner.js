@@ -38,7 +38,7 @@ export default function Banner(props) {
       </Text>
       <Flex w='max-content' mx='auto' mt='26px'>
         <Flex mx='auto' me='60px' align='center' direction='column'>
-          <Text color={textColorPrimary} fontSize='2xl' fontWeight='700'>
+          {/* <Text color={textColorPrimary} fontSize='2xl' fontWeight='700'>
             {posts}
           </Text>
           <Text color={textColorSecondary} fontSize='sm' fontWeight='400'>
@@ -59,7 +59,7 @@ export default function Banner(props) {
           </Text>
           <Text color={textColorSecondary} fontSize='sm' fontWeight='400'>
             Following
-          </Text>
+          </Text> */}
         </Flex>
       </Flex>
     </Card>

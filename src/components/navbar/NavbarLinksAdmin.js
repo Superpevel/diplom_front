@@ -45,6 +45,7 @@ export default function HeaderLinks(props) {
     localStorage.removeItem('rank');
     localStorage.removeItem('login');
     localStorage.removeItem('password');
+    window.location.reload()
   }
   const borderButton = useColorModeValue("secondaryGray.500", "whiteAlpha.200");
   return (
@@ -94,7 +95,7 @@ export default function HeaderLinks(props) {
         </Text>
       </Flex>
       <SidebarResponsive routes={routes} />
-      <Menu>
+      {/* <Menu>
         <MenuButton p='0px'>
           <Icon
             mt='6px'
@@ -150,9 +151,9 @@ export default function HeaderLinks(props) {
             </MenuItem>
           </Flex>
         </MenuList>
-      </Menu>
+      </Menu> */}
 
-			<Menu>
+			{/* <Menu>
 				<MenuButton p="0px">
 					<Icon mt="6px" as={MdInfoOutline} color={navbarIcon} w="18px" h="18px" me="10px" />
 				</MenuButton>
@@ -191,7 +192,7 @@ export default function HeaderLinks(props) {
 						</Link>
 					</Flex>
 				</MenuList>
-			</Menu>
+			</Menu> */}
 
 			<ThemeEditor navbarIcon={navbarIcon} />
 
@@ -225,7 +226,7 @@ export default function HeaderLinks(props) {
               fontSize='sm'
               fontWeight='700'
               color={textColor}>
-              Вы вошли как: {localStorage.getItem('login') ? localStorage.getItem('login'): <a href="/#/auth/sign-in">login in pls</a>}
+              { localStorage.getItem('login') ? 'Вы вошли как: ' + localStorage.getItem('login'): <a href="/#/auth/sign-in">LOGIN</a>}
             </Text>
           </Flex>
           <Flex flexDirection='column' p='10px'>

@@ -37,7 +37,8 @@ import {
 import tableDataDevelopment from "views/admin/dataTables/variables/tableDataDevelopment.json";
 import tableDataCheck from "views/admin/dataTables/variables/tableDataCheck.json";
 import tableDataColumns from "views/admin/dataTables/variables/tableDataColumns.json";
-import ColumnsTable from "views/admin/dataTables/components/ScheduleTable";
+import ScheduleTable from "views/admin/dataTables/components/ScheduleTable";
+import SchedulePopUP from "views/admin/dataTables/components/SchedulePopUP";
 
 import tableDataComplex from "views/admin/dataTables/variables/tableDataComplex.json";
 import React from "react";
@@ -63,7 +64,13 @@ export default function Settings() {
           columnsData={columnsDataComplex}
           tableData={tableDataComplex}
         /> */}
-        <ColumnsTable
+      </SimpleGrid>
+      <SchedulePopUP></SchedulePopUP>
+      <SimpleGrid
+        columns={{ sm: 2, md: 2 }}
+        spacing={{ base: "20px", xl: "20px" }}
+      >
+        <ScheduleTable
           columnsData={columnsDataColumns}
           tableData={tableDataColumns}
         />

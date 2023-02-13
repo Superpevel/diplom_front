@@ -23,7 +23,7 @@ import {
   // Custom components
   import Card from "components/card/Card";
   import Menu from "components/menu/MainMenu";
-  export default function ColumnsTable(props) {
+  export default function ScheduleTable(props) {
     const { columnsData, tableData } = props;
   
     const columns = useMemo(() => columnsData, [columnsData]);
@@ -51,7 +51,7 @@ import {
   
     async function GetDoors() {
       try {
-        let res = await fetch("http://localhost:8007/api/doors/", {
+        let res = await fetch("http://localhost:8007/api/doors/doors_schedule", {
           method: "GET",
           headers: {
             "Content-Type": "application/json;",
@@ -74,7 +74,7 @@ import {
   
     async function DeleteDoor(id) {
     try {
-        let res = await fetch("http://localhost:8007/api/doors/", {
+        let res = await fetch("http://localhost:8007/api/doors/doors_schedule", {
           method: "DELETE",
           body: JSON.stringify({
             id: id
@@ -101,7 +101,7 @@ import {
     
   
     function handleNextPage(page, page_size) {
-        var url = `http://localhost:8007/api/doors/?limit=${page_size}&page=${page}`
+        var url = `http://localhost:8007/api/doors/doors_schedule/?limit=${page_size}&page=${page}`
   
         fetch(url)
         .then(response => response.json())
@@ -109,7 +109,7 @@ import {
         setPageNum(pageNum+1)
       }
     function handlePreviousPage(page, page_size) {
-      var url = `http://localhost:8007/api/doors/?limit=${page_size}&page=${page}`
+      var url = `http://localhost:8007/api/doors/doors_schedule/?limit=${page_size}&page=${page}`
   
       fetch(url)
       .then(response => response.json())
@@ -156,7 +156,7 @@ import {
         }
         bd[arg] = value;
         bd['id'] = id;
-        let res = await fetch("http://localhost:8007/api/doors/", {
+        let res = await fetch("http://localhost:8007/api/doors/doors_schedule", {
           body: JSON.stringify(bd),
           method: "PATCH",
           headers: {
@@ -196,7 +196,7 @@ import {
                 fontWeight="700"
                 lineHeight="100%"
               >
-                Двери
+                Расписание работы дверей
               </Text>
               <Menu />
             </Flex>
@@ -231,7 +231,7 @@ import {
                           fontSize={{ sm: "10px", lg: "12px" }}
                           color="gray.400"
                         >
-                          RANK
+                          Door id
                         </Flex>
                       </Th>
                       <Th
@@ -244,7 +244,7 @@ import {
                           fontSize={{ sm: "10px", lg: "12px" }}
                           color="gray.400"
                         >
-                          IS Entry
+                          Change RANK
                         </Flex>
                       </Th>
                       <Th
@@ -257,7 +257,7 @@ import {
                           fontSize={{ sm: "10px", lg: "12px" }}
                           color="gray.400"
                         >
-                          IS EXIT
+                          CHANGE TIME
                         </Flex>
                       </Th>
                       <Th
@@ -294,21 +294,8 @@ import {
                           minW={{ sm: "150px", md: "200px", lg: "auto" }}
                           borderColor="transparent"
                         >
-                        <input type="text" defaultValue={el.rank} onChange={e => TimeOutPatch('rank', e.target.value, el.id)}/>
-  
-                        </Td>
-                        <Td
-                          fontSize={{ sm: "14px" }}
-                          minW={{ sm: "150px", md: "200px", lg: "auto" }}
-                          borderColor="transparent"
-                        >
                           <Text color={textColor} fontSize="sm" fontWeight="700">
-                            <input
-                                  type="checkbox"
-                                  name="period"
-                                  defaultChecked={el.is_entry}
-                                  onChange={e => TimeOutPatch('is_entry', e.target.checked, el.id)}
-                            />
+                          {el.door_id}
                           </Text>
                         </Td>
                         <Td
@@ -317,12 +304,16 @@ import {
                           borderColor="transparent"
                         >
                           <Text color={textColor} fontSize="sm" fontWeight="700">
-                          <input
-                                  type="checkbox"
-                                  name="period"
-                                  defaultChecked={el.is_exit}
-                                  onChange={e => TimeOutPatch('is_exit', e.target.checked, el.id)}
-                            />
+                              <input type="text" defaultValue={el.change_rank} onChange={e => TimeOutPatch('change_rank', e.target.value, el.id)}/>
+                          </Text>
+                        </Td>
+                        <Td
+                          fontSize={{ sm: "14px" }}
+                          minW={{ sm: "150px", md: "200px", lg: "auto" }}
+                          borderColor="transparent"
+                        >
+                          <Text color={textColor} fontSize="sm" fontWeight="700">
+                              <input type="time" defaultValue={el.change_time} onChange={e => TimeOutPatch('change_time', e.target.value, el.id)}/>
                           </Text>
                         </Td>
                         <Td>
@@ -334,7 +325,7 @@ import {
                                 borderRadius='70px'
                                 px='24px'
                                 py='5px'
-                              onClick={() => DeleteDoor(el.id)}> DeleteDoor </Button>
+                              onClick={() => DeleteDoor(el.id)}> DeleteDoorSchedule </Button>
                         </Td>
                       </Tr>
                     );
