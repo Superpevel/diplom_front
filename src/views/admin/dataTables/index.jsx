@@ -25,6 +25,8 @@ import { Box, SimpleGrid } from "@chakra-ui/react";
 import DevelopmentTable from "views/admin/dataTables/components/DevelopmentTable";
 import CheckTable from "views/admin/dataTables/components/CheckTable";
 import ColumnsTable from "views/admin/dataTables/components/ColumnsTable";
+import WorkPlaceTable from "views/admin/dataTables/components/WorkPlace";
+
 import UserTable from "views/admin/dataTables/components/UserTable";
 
 import ComplexTable from "views/admin/dataTables/components/ComplexTable";
@@ -39,6 +41,7 @@ import tableDataCheck from "views/admin/dataTables/variables/tableDataCheck.json
 import tableDataColumns from "views/admin/dataTables/variables/tableDataColumns.json";
 import ScheduleTable from "views/admin/dataTables/components/ScheduleTable";
 import SchedulePopUP from "views/admin/dataTables/components/SchedulePopUP";
+import WorkPlacePopUP from "views/admin/dataTables/components/WorkPlacePopUP";
 
 import tableDataComplex from "views/admin/dataTables/variables/tableDataComplex.json";
 import React from "react";
@@ -71,6 +74,16 @@ export default function Settings() {
         spacing={{ base: "20px", xl: "20px" }}
       >
         <ScheduleTable
+          columnsData={columnsDataColumns}
+          tableData={tableDataColumns}
+        />
+      </SimpleGrid>
+      <WorkPlacePopUP></WorkPlacePopUP>
+      <SimpleGrid
+        columns={{ sm: 2, md: 2 }}
+        spacing={{ base: "20px", xl: "20px" }}
+      >
+        <WorkPlaceTable
           columnsData={columnsDataColumns}
           tableData={tableDataColumns}
         />

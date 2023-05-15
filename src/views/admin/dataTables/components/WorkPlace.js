@@ -19,14 +19,12 @@ import {
     useTable,
   } from "react-table";
   import Pagination from "components/Pagination";
-  import Popup from 'reactjs-popup';
-  import 'reactjs-popup/dist/index.css';
-
-
+  
   // Custom components
   import Card from "components/card/Card";
   import Menu from "components/menu/MainMenu";
-  export default function UserTable(props) {
+
+  export default function WorkPlaceTable(props) {
     const { columnsData, tableData } = props;
   
     const columns = useMemo(() => columnsData, [columnsData]);
@@ -51,116 +49,11 @@ import {
       initialState,
     } = tableInstance;
     initialState.pageSize = 5;
-
-    async function DeleteUser(id) {
-        try {
-          let res = await fetch("http://localhost:8007/api/users/", {
-            method: "DELETE",
-            body: JSON.stringify({
-              id: id
-            }),
-            headers: {
-              "Content-Type": "application/json;",
-              Authorization:
-                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InN0cmluZyIsInBhc3N3b3JkIjoic3RyaW5nIiwidXNlcl9pZCI6MX0.eOYE-WlCU16LfHnZdxHu7zhoDdaJxR9wVnTsdNltF8s",
-            },
-          });
-          if (res.status === 204) {
-            console.log("door deleted");
-          } else {
-            console.log("Some error occured");
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      }
-
-    async function GetUsers() {
+  
+    async function GetWorkPlace() {
       try {
-        let res = await fetch("http://localhost:8007/api/users/", {
+        let res = await fetch("http://localhost:8007/api/doors/work_place", {
           method: "GET",
-          headers: {
-            "Content-Type": "application/json;",
-            Authorization:
-              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InN0cmluZyIsInBhc3N3b3JkIjoic3RyaW5nIiwidXNlcl9pZCI6MX0.eOYE-WlCU16LfHnZdxHu7zhoDdaJxR9wVnTsdNltF8s",
-          },
-        });
-        let resJson = await res.json();
-        if (res.status === 200) {
-          console.log("got users");
-          console.log(resJson);
-          return resJson;
-        } else {
-          console.log("Some error occured");
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    const [pageNum, setPageNum] = useState(0);
-  
-    const page_size = 100
-    
-  
-    function handleNextPage(page, page_size) {
-        var url = `http://localhost:8007/api/users/?limit=${page_size}&page=${page}`
-  
-        fetch(url)
-        .then(response => response.json())
-        .then(data => setDoorsData(data))
-        setPageNum(pageNum+1)
-      }
-    function handlePreviousPage(page, page_size) {
-      var url = `http://localhost:8007/api/users/?limit=${page_size}&page=${page}`
-  
-      fetch(url)
-      .then(response => response.json())
-      .then(data => setDoorsData(data))
-      setPageNum(pageNum-1)
-    }
-  
-    const [doorsData, setDoorsData] = useState(null);
-    const [loading, setLoading] = useState(false);
-    useEffect(() => {
-      setLoading(true);
-      const fetchData = async () => {
-        const data = await GetUsers();
-        if (data) {
-          setDoorsData(data);
-          setLoading(false);
-        }
-      };
-      fetchData();
-    }, []);
-  
-    const textColor = useColorModeValue("secondaryGray.900", "white");
-    const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
-  
-  
-    const [timer, setTimer] = useState(null)
-  
-    async function TimeOutPatch(arg,value,id){
-  
-      clearTimeout(timer)
-      const newTimer = setTimeout(() => {
-        PatchDoors(arg,value,id)
-      }, 500)
-  
-      setTimer(newTimer)
-    }
-  
-    async function PatchDoors(arg, value, id) {
-      console.log("HELLO!", id)
-      try {
-        var bd = {};
-        if (arg == 'rank'){
-          value = Number(value)
-        }
-        bd[arg] = value;
-        bd['id'] = id;
-        let res = await fetch("http://localhost:8007/api/users/", {
-          body: JSON.stringify(bd),
-          method: "PATCH",
           headers: {
             "Content-Type": "application/json;",
             Authorization:
@@ -180,10 +73,75 @@ import {
       }
     }
   
+    async function DeleteWorkPlace(id) {
+    try {
+        let res = await fetch("http://localhost:8007/api/work_place/", {
+          method: "DELETE",
+          body: JSON.stringify({
+            id: id
+          }),
+          headers: {
+            "Content-Type": "application/json;",
+            Authorization:
+              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InN0cmluZyIsInBhc3N3b3JkIjoic3RyaW5nIiwidXNlcl9pZCI6MX0.eOYE-WlCU16LfHnZdxHu7zhoDdaJxR9wVnTsdNltF8s",
+          },
+        });
+        if (res.status === 204) {
+          console.log("door deleted");
+        } else {
+          console.log("Some error occured");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  
+    const [pageNum, setPageNum] = useState(0);
+  
+    const page_size = 100
+    
+  
+    function handleNextPage(page, page_size) {
+        var url = `http://localhost:8007/api/doors/work_place/?limit=${page_size}&page=${page}`
+  
+        fetch(url)
+        .then(response => response.json())
+        .then(data => setDoorsData(data))
+        setPageNum(pageNum+1)
+      }
+    function handlePreviousPage(page, page_size) {
+      var url = `http://localhost:8007/api/doors/work_place/?limit=${page_size}&page=${page}`
+  
+      fetch(url)
+      .then(response => response.json())
+      .then(data => setDoorsData(data))
+      setPageNum(pageNum-1)
+    }
+  
+    const [doorsData, setDoorsData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+      setLoading(true);
+      const fetchData = async () => {
+        const data = await GetWorkPlace();
+        if (data) {
+          setDoorsData(data);
+          setLoading(false);
+        }
+      };
+      fetchData();
+    }, []);
+  
+    const textColor = useColorModeValue("secondaryGray.900", "white");
+    const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
+  
+  
+
+  
     return (
       <Card
         direction="column"
-        w="100%"
+        w="150%"
         px="0px"
         overflowX={{ sm: "scroll", lg: "hidden" }}
       >
@@ -198,7 +156,7 @@ import {
                 fontWeight="700"
                 lineHeight="100%"
               >
-                Пользоветели
+                Рабочее места
               </Text>
               <Menu />
             </Flex>
@@ -233,7 +191,7 @@ import {
                           fontSize={{ sm: "10px", lg: "12px" }}
                           color="gray.400"
                         >
-                          Login
+                          User ID
                         </Flex>
                       </Th>
                       <Th
@@ -246,7 +204,7 @@ import {
                           fontSize={{ sm: "10px", lg: "12px" }}
                           color="gray.400"
                         >
-                          Email
+                          Door ID
                         </Flex>
                       </Th>
                       <Th
@@ -259,7 +217,7 @@ import {
                           fontSize={{ sm: "10px", lg: "12px" }}
                           color="gray.400"
                         >
-                          RANK
+                          DELETE 
                         </Flex>
                       </Th>
                   </Tr>
@@ -283,9 +241,7 @@ import {
                           minW={{ sm: "150px", md: "200px", lg: "auto" }}
                           borderColor="transparent"
                         >
-                            <Text color={textColor} fontSize="sm" fontWeight="700">
-                            {el.login}
-                            </Text>
+                        <input type="text" defaultValue={el.user_id}/>
                         </Td>
                         <Td
                           fontSize={{ sm: "14px" }}
@@ -293,22 +249,19 @@ import {
                           borderColor="transparent"
                         >
                           <Text color={textColor} fontSize="sm" fontWeight="700">
-                          <Text color={textColor} fontSize="sm" fontWeight="700">
-                            {el.email}
-                            </Text>
-                          </Text>
-                        </Td>
-                        <Td
-                          fontSize={{ sm: "14px" }}
-                          minW={{ sm: "150px", md: "200px", lg: "auto" }}
-                          borderColor="transparent"
-                        >
-                          <Text color={textColor} fontSize="sm" fontWeight="700">
-                            <input type="text" defaultValue={el.rank} onChange={e => TimeOutPatch('rank', e.target.value, el.id)}/>
+                            {el.door_id}
                           </Text>
                         </Td>
                         <Td>
-                            <Button onClick={() => DeleteUser(el.id)}> DeleteUser </Button>
+                              <Button 
+                                variant='darkBrand'
+                                color='white'
+                                fontSize='sm'
+                                fontWeight='500'
+                                borderRadius='70px'
+                                px='24px'
+                                py='5px'
+                              onClick={() => DeleteWorkPlace(el.id)}> DeleteWorkPlace </Button>
                         </Td>
                       </Tr>
                     );
